@@ -46,6 +46,16 @@ public class GridManager : MonoBehaviour
     public GameObject nextButton;
 
     public GameObject tutorialText;
+
+    public GameObject stepCountGO;
+
+    private int stepCount = 0;
+    private void setStepCount(int value)
+    {
+        stepCountGO.GetComponent<Text>().text = value.ToString();
+        stepCount = value;
+    }
+
     private void InitBackgroundTiles() {
         tilemap.ClearAllTiles();
         for (int y = 0; y < CellFunctions.gridHeight; y++) {
@@ -245,6 +255,8 @@ public class GridManager : MonoBehaviour
         clean = true;
         cellUpdateIndex = 0;
         rotationUpdateIndex = 0;
+
+        setStepCount(0);
     }
     
     private void printGrid()
@@ -291,6 +303,8 @@ public class GridManager : MonoBehaviour
             }
         }
         if (timeSinceLastUpdate > animationLength && (playSimulation || stepSimulation)) {
+
+            setStepCount(stepCount + 1);
 
             timeSinceLastUpdate = 0;
             stepSimulation = false;
