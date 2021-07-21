@@ -82,7 +82,7 @@ public class Save : MonoBehaviour
                 }
                 foreach (Cell cell in CellFunctions.cellList)
                 {
-                    cellData[(int)cell.spawnPosition.x + ((int)cell.spawnPosition.y * CellFunctions.gridWidth)] += (2 * (int)cell.cellType) + (8 * cell.rotation) - 72;
+                    cellData[(int)cell.spawnPosition.x + ((int)cell.spawnPosition.y * CellFunctions.gridWidth)] += (2 * (int)cell.cellType) + (18 * cell.rotation) - 72;
                 }
 
                 int runLength = 1;
