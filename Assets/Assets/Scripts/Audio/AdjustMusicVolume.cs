@@ -12,7 +12,6 @@ public class AdjustMusicVolume : MonoBehaviour
         {
             Music.GetComponent<MusicManager>().volumeUpdate(vol);
         }
-        //GameObject.FindGameObjectWithTag("Music").GetComponent<MusicManager>().volumeUpdate(vol);
     }
     
 }

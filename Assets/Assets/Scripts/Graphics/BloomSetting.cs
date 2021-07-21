@@ -7,8 +7,6 @@ using UnityEngine.Rendering.Universal;
 public class BloomSetting : MonoBehaviour
 {
 
-    //public RendererFeature renderFeature;
-    //volumeOverride vo;
 
     void Start()
     {
@@ -17,7 +15,5 @@ public class BloomSetting : MonoBehaviour
             GetComponent<Volume>().profile.TryGet<Bloom>(out var bloom);
             bloom.active = false;
         }
-
-        //GetComponent<Volume>().active = false;
     }
 }
