@@ -15,6 +15,10 @@ jobs:
           - StandaloneOSX # Build a macOS standalone (Intel 64-bit).
           - StandaloneWindows64 # Build a Windows 64-bit standalone.
           - StandaloneLinux64 # Build a Linux 64-bit standalone.
+        channel:
+          - osx
+          - windows
+          - linux
     steps:
       - uses: actions/checkout@v2
         with:
@@ -31,6 +35,13 @@ jobs:
         with:
           targetPlatform: ${{ matrix.targetPlatform }}
           projectPath: ${{ matrix.projectPath }}
+      - uses: josephbmanley/butler-publish-itchio-action@master
+        env:
+          BUTLER_CREDENTIALS: ${{ secrets.ITCH_API_KEY }}
+          CHANNEL: ${{ matrix.targetPlatform }}
+          ITCH_GAME: cell-machine-mystic-mod
+          ITCH_USER: TheMysticLynx
+          PACKAGE: build/${{ matrix.targetPlatform }}
       - uses: actions/upload-artifact@v2
         with:
           name: Build-${{ matrix.targetPlatform }}
