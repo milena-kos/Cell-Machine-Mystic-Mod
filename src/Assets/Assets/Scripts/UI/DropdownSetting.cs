@@ -6,12 +6,13 @@ using UnityEngine.UI;
 public class DropdownSetting : MonoBehaviour
 {
     public string playerPrefString;
+    public int defaultValue = 0;
     Dropdown dropdown;
 
     void Start()
     {
         dropdown = GetComponent<Dropdown>();
-        dropdown.value = PlayerPrefs.GetInt(playerPrefString);
+        dropdown.value = PlayerPrefs.GetInt(playerPrefString, defaultValue);
         dropdown.onValueChanged.AddListener(delegate {
             DropdownValueChanged(dropdown);
         });
