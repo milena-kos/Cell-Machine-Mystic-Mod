@@ -4,7 +4,6 @@
 [![CodeFactor](https://www.codefactor.io/repository/github/sequitur-studios/cell-machine-mystic-mod/badge)](https://www.codefactor.io/repository/github/sequitur-studios/cell-machine-mystic-mod)
 ![Issues](https://img.shields.io/github/issues/Sequitur-Studios/Cell-Machine-Mystic-Mod)
 ![Forks](https://img.shields.io/github/forks/Sequitur-Studios/Cell-Machine-Mystic-Mod)
-![License](https://img.shields.io/github/license/Sequitur-Studios/Cell-Machine-Mystic-Mod)
 
 A game about cellular automata
 
