@@ -20,7 +20,6 @@ public class FullscreenSetting : MonoBehaviour
 
         Resolution[] resolutions = Screen.resolutions;
         largestRes = resolutions[resolutions.Length - 1];
-
     }
 
     void ToggleValueChanged(Toggle change)
