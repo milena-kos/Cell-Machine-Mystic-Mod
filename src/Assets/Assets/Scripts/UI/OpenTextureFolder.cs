@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.IO;
 using UnityEngine;
-using UnityEditor;
+
 public class OpenTextureFolder : MonoBehaviour
 {
     public void OpenFolderInExplorer()
@@ -11,6 +11,6 @@ public class OpenTextureFolder : MonoBehaviour
         {
             Directory.CreateDirectory(Application.dataPath + "/texturepacks");
         }
-        EditorUtility.OpenWithDefaultApp(Application.dataPath + "/texturepacks");
+        UnityEditor.EditorUtility.OpenWithDefaultApp(Application.dataPath + "/texturepacks");
     }
 }
