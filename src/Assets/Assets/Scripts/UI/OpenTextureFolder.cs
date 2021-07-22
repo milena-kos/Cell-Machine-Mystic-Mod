@@ -11,8 +11,6 @@ public class OpenTextureFolder : MonoBehaviour
         {
             Directory.CreateDirectory(Application.dataPath + "/texturepacks");
         }
-
         EditorUtility.OpenWithDefaultApp(Application.dataPath + "/texturepacks");
-
-  }
+    }
 }

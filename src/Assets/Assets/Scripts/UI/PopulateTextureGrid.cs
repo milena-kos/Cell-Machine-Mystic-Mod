@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
+using AssemblyCSharp.Assets.Assets.Scripts.Enums;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -36,16 +37,16 @@ public class PopulateTextureGrid : MonoBehaviour
             // try to load pack.json, default to folder name
             try
             {
-                PackJSON packJSON = JsonUtility.FromJson<PackJSON>(System.Text.Encoding.UTF8.GetString(File.ReadAllBytes(text + "/pack.json")));
+                TexturePackData texturePackData = JsonUtility.FromJson<TexturePackData>(System.Text.Encoding.UTF8.GetString(File.ReadAllBytes(text + "/pack.json")));
 
-                textureCardTitle.GetComponent<Text>().text = packJSON.title;
+                textureCardTitle.GetComponent<Text>().text = texturePackData.title;
                 if (currentPack == text.Split('/').Last())
                 {
                     textureCardBG.SetActive(true);
                     textureCard.transform.SetAsFirstSibling();
                 }
 
-                textureCardDesc.GetComponent<Text>().text = packJSON.desc;
+                textureCardDesc.GetComponent<Text>().text = texturePackData.desc;
             }
             catch
             {
@@ -60,7 +61,6 @@ public class PopulateTextureGrid : MonoBehaviour
                     textureCardBG.SetActive(true);
                     textureCard.transform.SetAsFirstSibling();
                 }
-
 
                 textureCardDesc.GetComponent<Text>().text = "";
             }
@@ -80,14 +80,7 @@ public class PopulateTextureGrid : MonoBehaviour
             {
             }
 
-
         }
     }
     public GameObject prefab;
-}
-
-public class PackJSON
-{
-    public string title;
-    public string desc;
 }
