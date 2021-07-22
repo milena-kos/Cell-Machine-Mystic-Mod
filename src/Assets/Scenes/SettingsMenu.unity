@@ -2463,11 +2463,9 @@ MonoBehaviour:
   m_GameObject: {fileID: 624674585}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 770bf37d1ae2cb34492d6ffceb481a77, type: 3}
+  m_Script: {fileID: 11500000, guid: 972d66dcd7bca6940bbf3b2f122b22f2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  defaultSetting: 1
-  playerPrefString: fullscreen
 --- !u!114 &624674588
 MonoBehaviour:
   m_ObjectHideFlags: 0
