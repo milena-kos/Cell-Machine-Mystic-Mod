@@ -2,38 +2,59 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEditor;
+using System.IO;
 
 public class TextureLoader : MonoBehaviour
 {
-    public Sprite[] texturables;
-    public static Dictionary<string, Sprite> textures = new Dictionary<string, Sprite>();
+	public Sprite[] texturables;
+	public static Dictionary<string, Sprite> textures = new Dictionary<string, Sprite>();
 
+	private static TextureLoader i;
 
-    // Start is called before the first frame update
-    void Awake()
-    {
-        if (!System.IO.Directory.Exists(Application.dataPath + "/" + "tex"))
-                System.IO.Directory.CreateDirectory(Application.dataPath + "/" + "tex");
+	public static void LoadTextureSet(string folderName)
+	{
+		if (!Directory.Exists(Application.dataPath + "/texturepacks"))
+		{
+			Directory.CreateDirectory(Application.dataPath + "/texturepacks");
+		}
+		foreach (Sprite sprite in TextureLoader.i.texturables)
+		{
+			if (File.Exists(string.Concat(new string[]
+			{
+				Application.dataPath,
+				"/texturepacks/",
+				folderName,
+				"/",
+				sprite.name,
+				".png"
+			})))
+			{
+				byte[] array2 = File.ReadAllBytes(string.Concat(new string[]
+				{
+					Application.dataPath,
+					"/texturepacks/",
+					folderName,
+					"/",
+					sprite.name,
+					".png"
+				}));
+				if (array2.Length != 0)
+				{
+					Texture2D texture2D = Object.Instantiate<Texture2D>(TextureLoader.i.texturables[0].texture);
+					texture2D.LoadImage(array2);
+					Sprite sprite2 = Sprite.Create(texture2D, new Rect(0f, 0f, (float)texture2D.width, (float)texture2D.height), new Vector2(0.5f, 0.5f), (float)((texture2D.width > texture2D.height) ? texture2D.width : texture2D.height));
+					sprite2.name = "Sprite";
+					TextureLoader.textures[sprite.name] = sprite2;
+				}
+			}
+		}
+	}
 
-        foreach (Sprite sprite in texturables)
-        {
-            if (System.IO.File.Exists(Application.dataPath + "/" + "tex" + "/" + sprite.name + ".png"))
-            {
-                byte[] bytes = System.IO.File.ReadAllBytes(Application.dataPath + "/" + "tex" + "/" + sprite.name + ".png");
-                if (bytes.Length > 0)
-                {
-                    Texture2D tex = Instantiate(texturables[0].texture);
-                    
-                    tex.LoadImage(bytes);
-                    Sprite spr = Sprite.Create(tex, new Rect(0, 0, tex.width, tex.height), new Vector2(.5f, .5f), tex.width > tex.height ? tex.width : tex.height);
-                    spr.name = "ACACACCAC";
-                    textures[sprite.name] = spr;
-                }
-            }
-            else
-            {
-                System.IO.File.Create(Application.dataPath + "/" + "tex" + "/" + sprite.name + ".png");
-            }
-        }
-    }
+	// Start is called before the first frame update
+	void Awake()
+	{
+		TextureLoader.i = this;
+		TextureLoader.LoadTextureSet(PlayerPrefs.GetString("Texture", "Default"));
+	}
+
 }
