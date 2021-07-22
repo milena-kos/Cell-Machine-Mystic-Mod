@@ -39,6 +39,8 @@ public class PopulateTextureGrid : MonoBehaviour
             {
                 TexturePackData texturePackData = JsonUtility.FromJson<TexturePackData>(System.Text.Encoding.UTF8.GetString(File.ReadAllBytes(text + "/pack.json")));
 
+                if (texturePackData.title == "Default" && (text.Split('/').Last() != "Default")) { Destroy(textureCard); continue; }
+
                 textureCardTitle.GetComponent<Text>().text = texturePackData.title;
                 if (currentPack == text.Split('/').Last())
                 {
