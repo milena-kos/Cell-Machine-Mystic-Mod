@@ -6,19 +6,9 @@ using UnityEngine.UI;
 
 public class TextureButtonScript : MonoBehaviour
 {
-    private void Update()
-    {
-        //if (PlayerPrefs.GetString("Texture", "Default") == base.GetComponent<Text>().text)
-        //{
-        //    // set picked one
-        //    return;
-        //}
-    }
-
     // Token: 0x060000C1 RID: 193 RVA: 0x00006714 File Offset: 0x00004914
     public void OnClick()
     {
-        // set texture
         string texturePath = transform.GetChild(4).gameObject.GetComponent<Text>().text.Split('/').First();
 
         PlayerPrefs.SetString("Texture", texturePath);
