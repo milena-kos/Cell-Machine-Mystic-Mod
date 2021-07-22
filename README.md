@@ -4,7 +4,6 @@
 [![CodeFactor](https://www.codefactor.io/repository/github/sequitur-studios/cell-machine-mystic-mod/badge)](https://www.codefactor.io/repository/github/sequitur-studios/cell-machine-mystic-mod)
 ![Issues](https://img.shields.io/github/issues/Sequitur-Studios/Cell-Machine-Mystic-Mod)
 ![Forks](https://img.shields.io/github/forks/Sequitur-Studios/Cell-Machine-Mystic-Mod)
-![License](https://img.shields.io/github/license/Sequitur-Studios/Cell-Machine-Mystic-Mod)
 
 A game about cellular automata
 
@@ -14,7 +13,7 @@ Get the game here: https://themysticlynx.itch.io/cell-machine-mystic-mod
 
 ## Contributing
 
-###Requirements
+### Requirements
 
 1. Install [Unity Version 2019.4.28f1](https://unity3d.com/de/unity/qa/lts-releases)
 2. Install [git](https://git-scm.com/) (command line) or [GitKraken](https://www.gitkraken.com/) (GUI) for interaction with GitHub
