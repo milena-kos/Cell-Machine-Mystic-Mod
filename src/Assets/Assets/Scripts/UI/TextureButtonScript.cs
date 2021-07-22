@@ -1,5 +1,6 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -7,18 +8,24 @@ public class TextureButtonScript : MonoBehaviour
 {
     private void Update()
     {
-        if (PlayerPrefs.GetString("Texture", "Default") == base.GetComponent<Text>().text)
-        {
-            base.GetComponent<Text>().alignment = TextAnchor.MiddleLeft;
-            return;
-        }
-        base.GetComponent<Text>().alignment = TextAnchor.MiddleCenter;
+        //if (PlayerPrefs.GetString("Texture", "Default") == base.GetComponent<Text>().text)
+        //{
+        //    // set picked one
+        //    return;
+        //}
     }
 
     // Token: 0x060000C1 RID: 193 RVA: 0x00006714 File Offset: 0x00004914
     public void OnClick()
     {
-        PlayerPrefs.SetString("Texture", base.GetComponent<Text>().text);
-        TextureLoader.LoadTextureSet(base.GetComponent<Text>().text);
+        // set texture
+        string texturePath = transform.GetChild(4).gameObject.GetComponent<Text>().text.Split('/').First();
+
+        PlayerPrefs.SetString("Texture", texturePath);
+        TextureLoader.LoadTextureSet(texturePath);
+
+        transform.parent.GetChild(0).GetChild(0).gameObject.SetActive(false);
+        transform.SetAsFirstSibling();
+        transform.GetChild(0).gameObject.SetActive(true);
     }
 }
