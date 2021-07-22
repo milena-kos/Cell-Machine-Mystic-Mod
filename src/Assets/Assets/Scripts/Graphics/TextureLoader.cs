@@ -11,17 +11,36 @@ public class TextureLoader : MonoBehaviour
 
     private static TextureLoader i;
 
-    public static void LoadTextureSet(string folderName)
+    private static void validateFiles()
     {
         if (!Directory.Exists(Application.dataPath + "/texturepacks"))
         {
             Directory.CreateDirectory(Application.dataPath + "/texturepacks");
         }
 
-        print(folderName);
+        if (!Directory.Exists(Application.dataPath + "/texturepacks/Default"))
+        {
+            Directory.CreateDirectory(Application.dataPath + "/texturepacks/Default");
+        }
 
-        if (folderName == "Default") { textures = new Dictionary<string, Sprite>(); return; }
-        print("this ran");
+        foreach (Sprite sprite in TextureLoader.i.texturables)
+        {
+            if (!File.Exists(Application.dataPath + "/texturepacks/Default/" + sprite.name + ".png"))
+            {
+                print("Generating: " + sprite.name);
+                Texture2D toSave = Resources.Load(sprite.name) as Texture2D;
+
+                var Bytes = ImageConversion.EncodeToPNG(toSave);
+                Destroy(toSave);
+                File.WriteAllBytes(Application.dataPath + "/texturepacks/Default/" + sprite.name + ".png", Bytes);
+            }
+        }
+    }
+
+    public static void LoadTextureSet(string folderName)
+    {
+        validateFiles();
+
         foreach (Sprite sprite in TextureLoader.i.texturables)
         {
             if (File.Exists(string.Concat(new string[]
@@ -51,6 +70,17 @@ public class TextureLoader : MonoBehaviour
                     sprite2.name = "Sprite";
                     TextureLoader.textures[sprite.name] = sprite2;
                 }
+            } else
+            {
+                print("No file: " + string.Concat(new string[]
+                    {
+                        Application.dataPath,
+                        "/texturepacks/",
+                        folderName,
+                        "/",
+                        sprite.name,
+                        ".png"
+                    }));
             }
         }
     }
@@ -59,6 +89,9 @@ public class TextureLoader : MonoBehaviour
     void Awake()
     {
         TextureLoader.i = this;
+
+        validateFiles();
+
         TextureLoader.LoadTextureSet(PlayerPrefs.GetString("Texture", "Default"));
     }
 
