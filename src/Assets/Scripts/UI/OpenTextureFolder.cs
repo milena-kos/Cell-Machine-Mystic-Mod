@@ -1,6 +1,4 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using System.IO;
+﻿using System.IO;
 using UnityEngine;
 
 public class OpenTextureFolder : MonoBehaviour
@@ -11,6 +9,6 @@ public class OpenTextureFolder : MonoBehaviour
         {
             Directory.CreateDirectory(Application.dataPath + "/texturepacks");
         }
-        GUIUtility.systemCopyBuffer = Application.dataPath + "/texturepacks";
+        Application.OpenURL("file://" + Application.dataPath + "/texturepacks");
     }
 }

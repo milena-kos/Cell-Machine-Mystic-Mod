@@ -75,6 +75,23 @@ public class GridManager : MonoBehaviour
 
         instance = this;
 
+        if (TextureLoader.textures.ContainsKey("BGDefault"))
+        {
+            backgroundTile.sprite = TextureLoader.textures["BGDefault"];
+        }
+        else
+        {
+            print("No key found: " + "BGDefault");
+        }
+
+        if (TextureLoader.textures.ContainsKey("0"))
+        {
+            placebleTile.sprite = TextureLoader.textures["0"];
+        } else
+        {
+            print("No key found: " + "0");
+        }
+
         CellFunctions.cellList = new LinkedList<Cell>();
         CellFunctions.generatedCellList = new LinkedList<Cell>();
 

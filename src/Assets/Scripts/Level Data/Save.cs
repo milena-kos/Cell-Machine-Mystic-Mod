@@ -89,7 +89,7 @@ public class Save : MonoBehaviour
 
                 while (dataIndex < cellData.Length)
                 {
-                    
+
                     if (dataIndex + 1 < cellData.Length && cellData[dataIndex] == cellData[dataIndex + 1])
                         runLength++;
                     else
@@ -195,7 +195,7 @@ public class Save : MonoBehaviour
 
 
 
-        
+
 
         GridManager.hasSaved = true;
         GUIUtility.systemCopyBuffer = output;
