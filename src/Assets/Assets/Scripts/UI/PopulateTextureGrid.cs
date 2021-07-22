@@ -68,7 +68,6 @@ public class PopulateTextureGrid : MonoBehaviour
             // try to load pack image, default to no image
             try
             {
-
                 byte[] imgData = File.ReadAllBytes(text + "/icon.png");
                 Texture2D imgTex = new Texture2D(100, 100);
                 imgTex.LoadImage(imgData);
@@ -79,7 +78,6 @@ public class PopulateTextureGrid : MonoBehaviour
             catch
             {
             }
-
         }
     }
     public GameObject prefab;
