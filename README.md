@@ -14,7 +14,7 @@ Get the game here: https://themysticlynx.itch.io/cell-machine-mystic-mod
 
 ## Contributing
 
-###Requirements
+### Requirements
 
 1. Install [Unity Version 2019.4.28f1](https://unity3d.com/de/unity/qa/lts-releases)
 2. Install [git](https://git-scm.com/) (command line) or [GitKraken](https://www.gitkraken.com/) (GUI) for interaction with GitHub
