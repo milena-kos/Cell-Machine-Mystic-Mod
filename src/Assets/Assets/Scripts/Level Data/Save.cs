@@ -6,6 +6,13 @@ public class Save : MonoBehaviour
 {
     public GameObject saveText;
 
+    public void Start()
+    {
+        // Default to V3
+        if (!PlayerPrefs.HasKey("ExportFormat")) PlayerPrefs.SetInt("ExportFormat", 2);
+
+    }
+
     public void Awake()
     {
         saveText.gameObject.SetActive(false);
