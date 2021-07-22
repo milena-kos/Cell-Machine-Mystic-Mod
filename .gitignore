@@ -51,6 +51,10 @@ sysinfo.txt
 # Crashlytics generated file
 crashlytics-build.properties
 
-
 # MacOS attribute files
 .DS_Store
+
+src/.vsconfig
+
+src/Assets/Plugins.meta
+
