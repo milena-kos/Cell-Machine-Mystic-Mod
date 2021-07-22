@@ -6,12 +6,6 @@ public class Save : MonoBehaviour
 {
     public GameObject saveText;
 
-    public void Start()
-    {
-        // Default to V3
-        if (!PlayerPrefs.HasKey("ExportFormat")) PlayerPrefs.SetInt("ExportFormat", 2);
-    }
-
     public void Awake()
     {
         saveText.gameObject.SetActive(false);
@@ -95,7 +89,7 @@ public class Save : MonoBehaviour
 
                 while (dataIndex < cellData.Length)
                 {
-                    
+
                     if (dataIndex + 1 < cellData.Length && cellData[dataIndex] == cellData[dataIndex + 1])
                         runLength++;
                     else
@@ -201,7 +195,7 @@ public class Save : MonoBehaviour
 
 
 
-        
+
 
         GridManager.hasSaved = true;
         GUIUtility.systemCopyBuffer = output;
