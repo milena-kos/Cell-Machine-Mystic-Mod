@@ -42,6 +42,7 @@ jobs:
           ITCH_GAME: cell-machine-mystic-mod
           ITCH_USER: TheMysticLynx
           PACKAGE: build/${{ matrix.targetPlatform }}
+          VERSION: 0
       - uses: actions/upload-artifact@v2
         with:
           name: Build-${{ matrix.targetPlatform }}
