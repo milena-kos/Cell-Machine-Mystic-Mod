@@ -1,4 +1,0 @@
-{
-  "fileNames": { "darwin": "macos.zip", "windows": "windows.zip" },
-  "releaseSources": ["latest_commit", "latest_tag"]
-}
