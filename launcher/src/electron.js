@@ -1,4 +1,5 @@
 const electron = require("electron");
+require("dotenv").config();
 // Module to control application life.
 const app = electron.app;
 // Module to create native browser window.
@@ -13,17 +14,27 @@ let mainWindow;
 
 function createWindow() {
   // Create the browser window.
-  mainWindow = new BrowserWindow({ width: 800, height: 600 });
+  mainWindow = new BrowserWindow({
+    width: 800,
+    height: 350,
+    frame: false,
+    webPreferences: {
+      contextIsolation: true,
+      preload: path.join(__dirname, "preload.js"), // use a preload script
+    },
+  });
 
+  console.log(__dirname);
   // and load the index.html of the app.
   const startUrl =
     process.env.NODE_ENV === "development"
-      ? "http://localhost:3000 "
+      ? "http://localhost:3000"
       : url.format({
           pathname: path.join(__dirname, "/../build/index.html"),
           protocol: "file:",
           slashes: true,
         });
+
   mainWindow.loadURL(startUrl);
 
   // Open the DevTools.
