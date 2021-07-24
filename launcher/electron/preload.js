@@ -8,7 +8,7 @@ contextBridge.exposeInMainWorld("electron", {
       process.env.CUSTOM_REPO || "Sequitur-Studios/Cell-Machine-Mystic-Mod";
     const launcherData = await get(
       process.env.CUSTOM_LAUNCHER_CONFIG ||
-        `https://raw.githubusercontent.com/${repo}/main/launcher_config.json`
+        `https://raw.githubusercontent.com/${repo}/master/launcher_config.json`
     );
     const releaseData = await get(
       `https://api.github.com/repos/${repo}/releases`
