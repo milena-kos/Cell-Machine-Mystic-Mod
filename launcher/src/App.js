@@ -26,6 +26,7 @@ export const App = () => {
         setLoadingData(false);
       }
     })();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   useEffect(() => {
@@ -49,8 +50,6 @@ export const App = () => {
           label.innerText = `Downloading (${Math.trunc(p.percent * 100)}%)...`;
         else if (p.stage === "extracting") label.innerText = "Extracting...";
         else if (p.stage === "launching") label.innerText = "Launching...";
-        else if (p.stage === "cleaning")
-          label.innerText = "Cleaning temporary files...";
       }
     };
 
@@ -64,8 +63,6 @@ export const App = () => {
       electron.removeListener("log", onLog);
     };
   });
-
-  console.log(data, loadingData, error);
 
   if (loadingData) return <LoadingPage />;
 

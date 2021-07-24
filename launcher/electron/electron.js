@@ -69,24 +69,22 @@ const execCallback = (e, d) => e && e.errno !== -2 && error("LaunchError");
 
 electron.ipcMain.on("launchGame", async (event, { data, tag }) => {
   const repo =
-    process.env.CUSTOM_REPO ||
-    "f1shy-dev/cm-mm-launcher-testing" ||
-    "Sequitur-Studios/Cell-Machine-Mystic-Mod";
+    process.env.CUSTOM_REPO || "Sequitur-Studios/Cell-Machine-Mystic-Mod";
 
-  const isMacOS = platform() === "darwin";
-  const userDir = electron.app.getPath("userData");
+  const userDir = join(electron.app.getPath("userData"), "game");
   const dlPath = join(userDir, "/dlTemp/");
   const extractPath = join(userDir, `/versions/${tag}/`);
   const assetUrl = `https://github.com/${repo}/releases/download/${tag}/${
-    data.launcherData.fileNames[platform()]
+    data.launcherData.packNames[platform()]
   }`;
 
   const runPath = join(
     extractPath,
-    isMacOS ? "StandaloneOSX.app" : "bundle.exe"
+    data.launcherData.executableNames[platform()]
   );
 
   try {
+    if (!fs.existsSync(userDir)) fs.mkdirSync(userDir);
     if (!fs.existsSync(dlPath)) fs.mkdirSync(dlPath);
 
     if (!fs.existsSync(runPath)) {
@@ -103,16 +101,12 @@ electron.ipcMain.on("launchGame", async (event, { data, tag }) => {
 
     progress("launching", { percent: 1 });
 
-    if (isMacOS) {
+    if (platform === "darwin" || platform === "linux")
       exec(`chmod -R 755 "${runPath}"`, execCallback);
-      exec(`open -a "${runPath}";exit`, execCallback);
-    } else {
-      exec(`${runPath}`, console.log);
-    }
 
-    progress("cleaning", { percent: 1 });
-
-    fs.rmdir(dlPath, error);
+    if (platform === "darwin") exec(`open -a "${runPath}";exit`, execCallback);
+    if (platform === "windows") exec(`start "l" "${runPath}"`, execCallback);
+    if (platform === "linux") exec(`nohup "${runPath}" &`, execCallback);
 
     app.quit();
   } catch (err) {

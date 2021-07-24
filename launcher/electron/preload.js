@@ -5,9 +5,7 @@ contextBridge.exposeInMainWorld("electron", {
   getData: async () => {
     ipcRenderer.send("resize", { width: 300, height: 300 });
     const repo =
-      process.env.CUSTOM_REPO ||
-      "f1shy-dev/cm-mm-launcher-testing" ||
-      "Sequitur-Studios/Cell-Machine-Mystic-Mod";
+      process.env.CUSTOM_REPO || "Sequitur-Studios/Cell-Machine-Mystic-Mod";
     const launcherData = await get(
       process.env.CUSTOM_LAUNCHER_CONFIG ||
         `https://raw.githubusercontent.com/${repo}/main/launcher_config.json`
