@@ -7,7 +7,7 @@ const { exec } = require("child_process");
 const path = require("path");
 const fs = require("fs");
 const { format } = require("url");
-const { platform } = require("os");
+const os = require("os");
 
 const app = electron.app;
 const BrowserWindow = electron.BrowserWindow;
@@ -52,6 +52,8 @@ electron.ipcMain.on("resize", (e, args) =>
 );
 
 electron.ipcMain.on("exit", () => app.quit());
+electron.ipcMain.on("reload", () => mainWindow && mainWindow.reload());
+electron.ipcMain.handle("getPlatform", () => os.platform());
 
 const error = (e) => {
   if (mainWindow) {
@@ -67,20 +69,23 @@ const progress = (stage, extra) =>
 
 const execCallback = (e, d) => e && e.errno !== -2 && error("LaunchError");
 
-electron.ipcMain.on("launchGame", async (event, { data, tag }) => {
+electron.ipcMain.on("launchGame", async (event, { data, version }) => {
+  const platform = os.platform();
   const repo =
     process.env.CUSTOM_REPO || "Sequitur-Studios/Cell-Machine-Mystic-Mod";
 
   const userDir = join(electron.app.getPath("userData"), "game");
   const dlPath = join(userDir, "/dlTemp/");
-  const extractPath = join(userDir, `/versions/${tag}/`);
-  const assetUrl = `https://github.com/${repo}/releases/download/${tag}/${
-    data.launcherData.packNames[platform()]
-  }`;
+  const extractPath = join(userDir, `/versions/${version}/`);
+  const assetUrl = version.startsWith("#")
+    ? `https://api.github.com/repos/${repo}/actions/artifacts/${
+        version.split("#")[1]
+      }/zip`
+    : `https://github.com/${repo}/releases/download/${version}/${data.launcherData.packNames[platform]}`;
 
   const runPath = join(
     extractPath,
-    data.launcherData.executableNames[platform()]
+    data.launcherData.executableNames[platform]
   );
 
   try {

@@ -1,6 +1,7 @@
 import { CloseIcon } from "./icons/CloseIcon";
+// import { SettingsIcon } from "./icons/SettingsIcon";
 
-export const TopContent = () => (
+export const TopContent = ({ setSettingsOpen }) => (
   <div className="top-container">
     <div className="title-container">
       <h1 className="title">Cell Machine</h1>
@@ -9,7 +10,7 @@ export const TopContent = () => (
     <div className="flex-spacer"></div>
     <div className="btn-container">
       <CloseIcon className="iconBtn" onClick={() => window.electron.exit()} />
-      {/* <SettingsIcon className="iconBtn" /> */}
+      {/* <SettingsIcon className="iconBtn" onClick={() => setSettingsOpen(true)} /> */}
     </div>
   </div>
 );

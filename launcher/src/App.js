@@ -3,9 +3,8 @@ import { LoadingPage } from "./components/LoadingPage";
 import { ProgressBar } from "./components/ProgressBar";
 import { ErrorPage } from "./components/ErrorPage";
 import { TopContent } from "./components/TopContent";
-
-import { CloseIcon } from "./components/icons/CloseIcon";
 import { AlertIcon } from "./components/icons/AlertIcon";
+import { Modal } from "./components/Modal";
 
 export const App = () => {
   const electron = window.electron;
@@ -13,13 +12,17 @@ export const App = () => {
   const [loadingData, setLoadingData] = useState(true);
   const [launching, setLaunching] = useState(false);
   const [error, setError] = useState(false);
+  const [artifacts, setArtifacts] = useState([]);
+  const [settingsOpen, setSettingsOpen] = useState(false);
 
   useEffect(() => {
     (async () => {
       if (!loadingData) return;
       try {
         setLoadingData(true);
-        setData(await electron.getData());
+        const tempData = await electron.getData();
+        setData(tempData);
+        setArtifacts(await electron.getArtifacts(tempData));
         setLoadingData(false);
       } catch (error) {
         // add error handling here
@@ -71,21 +74,36 @@ export const App = () => {
 
   if (error)
     return (
-      <div className="modal-container">
-        <div className="inner-modal">
-          <CloseIcon
-            className="iconBtn modalErrBtn"
-            onClick={() => setError(false)}
-          />
-          <AlertIcon />
-          <span className="loader-text-err">{error}</span>
-        </div>
-      </div>
+      <Modal setOpen={setError}>
+        <AlertIcon />
+        <span className="loader-text-err">{error}</span>
+      </Modal>
     );
 
+  if (settingsOpen)
+    return (
+      <Modal setOpen={setSettingsOpen}>
+        <div className="settings-container">
+          <h3>Settings</h3>
+
+          <div className="setting">
+            <input
+              type="checkbox"
+              onChange={(e) =>
+                localStorage.setItem("enableArtifacts", e.target.checked)
+              }
+              defaultChecked={
+                localStorage.getItem("enableArtifacts") === "true"
+              }
+            />
+            <span>Enable launching versions built from artifacts.</span>
+          </div>
+        </div>
+      </Modal>
+    );
   return (
     <div className="content">
-      <TopContent />
+      <TopContent setSettingsOpen={setSettingsOpen} />
       <div className="flex-spacer"></div>
       <div className="bottom-container">
         {launching ? (
@@ -95,6 +113,7 @@ export const App = () => {
             data={data}
             setLaunching={setLaunching}
             electron={electron}
+            artifacts={artifacts}
           />
         )}
       </div>
@@ -102,7 +121,7 @@ export const App = () => {
   );
 };
 
-const BottomContainerIdle = ({ data, setLaunching, electron }) => (
+const BottomContainerIdle = ({ data, setLaunching, electron, artifacts }) => (
   <>
     <div className="input-group">
       <label htmlFor="version">Version</label>
@@ -112,6 +131,12 @@ const BottomContainerIdle = ({ data, setLaunching, electron }) => (
             {i === 0 ? `Latest release (${e.tag_name})` : e.tag_name}
           </option>
         ))}
+        {localStorage.getItem("enableArtifacts") === "true" &&
+          artifacts.map((e, i) => (
+            <option value={"#" + e.id} key={"#" + e.id}>
+              {i === 0 ? `Latest Artifact (#${e.id})` : `Artifact #${e.id}`}
+            </option>
+          ))}
       </select>
     </div>
     <div className="flex-spacer"></div>
