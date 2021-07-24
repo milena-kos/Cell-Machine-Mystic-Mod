@@ -16,7 +16,7 @@
     "start:react": "react-scripts start",
     "build:react": "react-scripts build",
     "start:electron": "electron .",
-    "build:electron": "electron-builder -mw",
+    "build:electron": "electron-builder -lmw",
     "start": "run-p start:*",
     "build": "run-s build:*",
     "test": "react-scripts test --env=jsdom",
