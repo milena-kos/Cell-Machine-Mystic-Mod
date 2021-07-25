@@ -4,6 +4,7 @@ using UnityEngine;
 using UnityEngine.Tilemaps;
 using System;
 using TMPro;
+using Brotli;
 
 namespace load
 {
@@ -32,7 +33,7 @@ namespace load
             }
             return output;
         }
-        
+
 
         private static void SetCell(int c, int i)
         {
@@ -57,13 +58,13 @@ namespace load
                 initDict();
                 debounce = true;
             }
-                
+
             string[] arguments = str.Split(';');
 
             string levelName = "";
             string tutorialText = "";
 
-            //used in V2 and V3
+            //used in V2/V3/V4
             int length;
             int dataIndex = 0;
             int gridIndex = 0;
@@ -113,7 +114,7 @@ namespace load
                     {
                         if (arguments[3][dataIndex] == ')' || arguments[3][dataIndex] == '(')
                         {
-                            
+
                             cellData = decode[arguments[3][dataIndex - 1]];
                             if (arguments[3][dataIndex] == ')')
                             {
@@ -170,7 +171,7 @@ namespace load
                                 dataIndex += 2;
                                 offset = decode[arguments[3][dataIndex - 1]];
                                 length = decode[arguments[3][dataIndex]];
-                                
+
                             }
                             else
                             {
@@ -219,7 +220,22 @@ namespace load
                     tutorialText = arguments[4];
                     levelName = arguments[5];
                     break;
- 
+
+                case "V4":
+                    CellFunctions.gridWidth = DecodeString(arguments[1]);
+                    CellFunctions.gridHeight = DecodeString(arguments[2]);
+                    GridManager.instance.InitGridSize();
+                    Console.Write(arguments[4]);
+                    Console.Write(Convert.FromBase64String(arguments[4]));
+
+                    string deCompressed = System.Text.Encoding.UTF8.GetString(Convert.FromBase64String(arguments[3]).DecompressFromBrotli());
+                    while (dataIndex < deCompressed.Length)
+                    {
+                        SetCell(DecodeString(deCompressed[dataIndex].ToString()), dataIndex);
+                        dataIndex++;
+                    }
+                    break;
+
                 default:
                     return false;
             }

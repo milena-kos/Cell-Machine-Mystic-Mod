@@ -3517,6 +3517,8 @@ MonoBehaviour:
       m_Image: {fileID: 0}
     - m_Text: V3 (LZ77)
       m_Image: {fileID: 0}
+    - m_Text: V4 (Brotli)
+      m_Image: {fileID: 0}
   m_OnValueChanged:
     m_PersistentCalls:
       m_Calls: []
