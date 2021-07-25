@@ -132,13 +132,6 @@ public class Save : MonoBehaviour
                 int maxMatchLength;
                 int maxMatchOffset = 0;
 
-                string xOutput = "";
-
-                foreach (int i in cellData)
-                {
-                    xOutput += EncodeInt(i);
-                }
-
                 while (dataIndex < cellData.Length)
                 {
                     maxMatchLength = 0;
