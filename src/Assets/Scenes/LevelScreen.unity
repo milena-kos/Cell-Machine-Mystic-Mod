@@ -4861,7 +4861,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1f4f7f28c1bf87b42bc616ec44803eec, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  objects:
+  objectsToHide:
   - {fileID: 133551044}
   - {fileID: 1727692361}
   - {fileID: 439691386}
@@ -4869,9 +4869,10 @@ MonoBehaviour:
   - {fileID: 486249574}
   - {fileID: 836680734}
   - {fileID: 2110744565}
-  - {fileID: 157974114}
   - {fileID: 892493339}
   - {fileID: 2000954260}
+  - {fileID: 157974114}
+  key: 282
 --- !u!1 &1267623590
 GameObject:
   m_ObjectHideFlags: 0
