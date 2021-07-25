@@ -1,18 +1,17 @@
-﻿using System.Collections;
-using System.Collections.Generic;
+﻿using System;
+using System.Text;
 using UnityEngine;
+using Brotli;
 
 public class Save : MonoBehaviour
 {
     public GameObject saveText;
+    private const string cellKey = "0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ!$%&+-.=?^{}";
 
     public void Awake()
     {
         saveText.gameObject.SetActive(false);
     }
-
-
-    private const string cellKey = "0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ!$%&+-.=?^{}";
 
     private string EncodeInt(int num)
     {
@@ -129,7 +128,6 @@ public class Save : MonoBehaviour
                     cellData[(int)cell.spawnPosition.x + ((int)cell.spawnPosition.y * CellFunctions.gridWidth)] += (2 * (int)cell.cellType) + (18 * cell.rotation) - 72;
                 }
 
-
                 int matchLength;
                 int maxMatchLength;
                 int maxMatchOffset = 0;
@@ -191,11 +189,26 @@ public class Save : MonoBehaviour
                 cellData = null;
                 output += ";;";
                 break;
+            case 3:
+                output = "V4;" + EncodeInt(CellFunctions.gridWidth) + ";" + EncodeInt(CellFunctions.gridHeight) + ";";
+                string rawOut = "";
+
+                for (int y = 0; y < CellFunctions.gridHeight; y++)
+                {
+                    for (int x = 0; x < CellFunctions.gridWidth; x++)
+                    {
+                        bool placable = GridManager.instance.tilemap.GetTile(new Vector3Int(x, y, 0)) == GridManager.instance.placebleTile;
+                        Cell currentCell = CellFunctions.cellGrid[x, y];
+                        if (currentCell == null) { rawOut += EncodeInt(placable ? 73 : 72); continue; }
+                        rawOut += EncodeInt((2 * (int)currentCell.cellType) + (18 * currentCell.rotation) + (placable ? 1 : 0));
+                    }
+                }
+
+                byte[] bytes = Encoding.UTF8.GetBytes(rawOut);
+                rawOut = null;
+                output += Convert.ToBase64String(bytes.CompressToBrotli()) + ";;";
+                break;
         }
-
-
-
-
 
         GridManager.hasSaved = true;
         GUIUtility.systemCopyBuffer = output;
