@@ -3,6 +3,10 @@
   "version": "0.1.0",
   "description": "The launcher for the Mystic Mod",
   "private": true,
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/Sequitur-Studios/Cell-Machine-Mystic-Mod.git"
+  },
   "dependencies": {
     "electron-dl": "^3.2.1",
     "extract-zip": "^2.0.1",
