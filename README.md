@@ -41,4 +41,5 @@ git clone https://github.com/Sequitur-Studios/Cell-Machine-Mystic-Mod
 ## License
 
 This repository is licensed under the [Apache 2.0 liscence](https://github.com/jjblock21/Cell-Machine-Mystic-Mod/blob/master/LICENSE) and also has the [“Commons Clause” License Condition v1.0](https://github.com/jjblock21/Cell-Machine-Mystic-Mod/blob/master/Commons%20Clause%20License).
-If you are uncertain about how you can use the project, or you want to use the project in a way not outlined by the liscence, contact us by email snat sequiturstudios@gmail.com or on discord at Mystic#8374 or WorstPacifist#8024
+
+If you are uncertain about how you can use the project, or you want to use the project in a way not outlined by the liscence, contact us by email at sequiturstudios@gmail.com or on discord at Mystic#8374 or WorstPacifist#8024
