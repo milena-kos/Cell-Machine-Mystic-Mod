@@ -36,6 +36,8 @@ ExportedObj/
 *.exe
 *.dll
 
+!src/Assets/Plugins/*.dll
+
 # Unity3D generated meta files
 *.pidb.meta
 *.pdb.meta
