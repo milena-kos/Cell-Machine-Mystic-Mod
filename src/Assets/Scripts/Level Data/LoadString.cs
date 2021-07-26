@@ -4,7 +4,6 @@ using UnityEngine;
 using UnityEngine.Tilemaps;
 using System;
 using TMPro;
-using Brotli;
 
 namespace load
 {
@@ -228,7 +227,7 @@ namespace load
                     Console.Write(arguments[4]);
                     Console.Write(Convert.FromBase64String(arguments[4]));
 
-                    string deCompressed = System.Text.Encoding.UTF8.GetString(Convert.FromBase64String(arguments[3]).DecompressFromBrotli());
+                    string deCompressed = Compression.DeBrotliString(arguments[3]);
                     while (dataIndex < deCompressed.Length)
                     {
                         SetCell(DecodeString(deCompressed[dataIndex].ToString()), dataIndex);
