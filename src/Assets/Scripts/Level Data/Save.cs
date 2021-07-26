@@ -1,7 +1,4 @@
-﻿using System;
-using System.Text;
-using UnityEngine;
-using Brotli;
+﻿using UnityEngine;
 
 public class Save : MonoBehaviour
 {
@@ -204,9 +201,9 @@ public class Save : MonoBehaviour
                     }
                 }
 
-                byte[] bytes = Encoding.UTF8.GetBytes(rawOut);
+
+                output += Compression.BrotliString(rawOut) + ";;";
                 rawOut = null;
-                output += Convert.ToBase64String(bytes.CompressToBrotli()) + ";;";
                 break;
         }
 
