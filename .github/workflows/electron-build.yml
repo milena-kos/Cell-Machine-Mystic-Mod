@@ -36,15 +36,24 @@ jobs:
         if: matrix.os == 'macos-latest'
         run: |
           mkdir artifacts
-          cp launcher/dist/*.dmg artifacts || true
+          mkdir artifacts/mac
+          cp -R launcher/dist/mac artifacts/mac || true
           
       - name: Cleanup artifacts (win)
         if: matrix.os == 'windows-latest'
         run: |
           mkdir artifacts
           mv launcher/dist/*.exe artifacts
+          
+      - name: Upload artifacts (macos)
+        if: matrix.os == 'macos-latest'
+        uses: actions/upload-artifact@v1
+        with:
+          name: Launcher-MacOS
+          path: artifacts/mac
 
-      - name: Upload artifacts
+      - name: Upload artifacts (win)
+        if: matrix.os == 'windows-latest'
         uses: actions/upload-artifact@v1
         with:
           name: MM Launcher (${{ matrix.os }})
