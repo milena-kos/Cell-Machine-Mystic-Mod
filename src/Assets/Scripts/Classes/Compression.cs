@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.IO;
 using System.IO.Compression;
 using System.Text;
@@ -19,7 +19,7 @@ public class Compression
 
     public static string BrotliString(string str)
     {
-        using (var msi = new MemoryStream(Encoding.UTF8.GetBytes(str)))
+        using (var msi = new MemoryStream(Encoding.UTF8.GetBytes(str.Replace('}', '/'))))
         using (var mso = new MemoryStream())
         {
             using (var gs = new BrotliSharpLib.BrotliStream(mso, CompressionMode.Compress))
@@ -37,7 +37,7 @@ public class Compression
             using (var gs = new BrotliSharpLib.BrotliStream(msi, CompressionMode.Decompress))
                 CopyTo(gs, mso);
 
-            return Encoding.UTF8.GetString(mso.ToArray());
+            return Encoding.UTF8.GetString(mso.ToArray()).Replace('/', '}');
         }
     }
 }
