@@ -1,4 +1,5 @@
-﻿using UnityEngine;
+﻿using System.Text;
+using UnityEngine;
 
 public class Save : MonoBehaviour
 {
@@ -188,7 +189,7 @@ public class Save : MonoBehaviour
                 break;
             case 3:
                 output = "V4;" + EncodeInt(CellFunctions.gridWidth) + ";" + EncodeInt(CellFunctions.gridHeight) + ";";
-                string rawOut = "";
+                StringBuilder rawOut = new StringBuilder();
 
                 for (int y = 0; y < CellFunctions.gridHeight; y++)
                 {
@@ -196,13 +197,16 @@ public class Save : MonoBehaviour
                     {
                         bool placable = GridManager.instance.tilemap.GetTile(new Vector3Int(x, y, 0)) == GridManager.instance.placebleTile;
                         Cell currentCell = CellFunctions.cellGrid[x, y];
-                        if (currentCell == null) { rawOut += EncodeInt(placable ? 73 : 72); continue; }
-                        rawOut += EncodeInt((2 * (int)currentCell.cellType) + (18 * currentCell.rotation) + (placable ? 1 : 0));
+                        if (currentCell == null)
+                        {
+                            rawOut.Append(EncodeInt(placable ? 73 : 72)); continue;
+                        }
+                        rawOut.Append(EncodeInt((2 * (int)currentCell.cellType) + (18 * currentCell.rotation) + (placable ? 1 : 0)));
                     }
                 }
 
 
-                output += Compression.BrotliString(rawOut) + ";;";
+                output += Compression.BrotliString(rawOut.ToString()) + ";;";
                 rawOut = null;
                 break;
         }
