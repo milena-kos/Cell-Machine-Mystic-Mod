@@ -40,5 +40,4 @@ public class Compression
             return Encoding.UTF8.GetString(mso.ToArray());
         }
     }
-
 }

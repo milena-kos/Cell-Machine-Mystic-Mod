@@ -205,7 +205,6 @@ public class Save : MonoBehaviour
                     }
                 }
 
-
                 output += Compression.BrotliString(rawOut.ToString()) + ";;";
                 rawOut = null;
                 break;
