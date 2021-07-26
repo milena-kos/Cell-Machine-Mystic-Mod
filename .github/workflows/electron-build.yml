@@ -48,4 +48,4 @@ jobs:
         uses: actions/upload-artifact@v1
         with:
           name: MM Launcher (${{ matrix.os }})
-          path: artifacts
+          path: artifacts/*
