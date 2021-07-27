@@ -9,11 +9,14 @@ EditorBuildSettings:
     path: Assets/Scenes/MainMenu.unity
     guid: 1322378148dc73749a8e8e862118c680
   - enabled: 1
+    path: Assets/Scenes/PlayMenu.unity
+    guid: 76a2d4bbc22a046d1832ad3f76f8d1b0
+  - enabled: 1
+    path: Assets/Scenes/OptionsMenu.unity
+    guid: 967df5174e8a7014989abac6b74fc714
+  - enabled: 1
     path: Assets/Scenes/TextureSelect.unity
     guid: fb3c233fad9a807419a4df0afd65ecc1
-  - enabled: 1
-    path: Assets/Scenes/SettingsMenu.unity
-    guid: 967df5174e8a7014989abac6b74fc714
   - enabled: 1
     path: Assets/Scenes/ImportLevel.unity
     guid: 7d05840753f3ac94bac11eae83e9a733
