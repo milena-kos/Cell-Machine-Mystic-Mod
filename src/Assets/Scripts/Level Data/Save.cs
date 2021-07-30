@@ -59,7 +59,7 @@ public class Save : MonoBehaviour
                     if (debounce)
                         output += ",";
                     debounce = true;
-                    output += (int)cell.cellType + "." + (int)cell.getDirection() + "." + (int)cell.spawnPosition.x + "." + (int)cell.spawnPosition.y;
+                    output += (int)cell.cellType + "." + (int)cell.spawnRotation + "." + (int)cell.spawnPosition.x + "." + (int)cell.spawnPosition.y;
                 }
                 output += ";;";
 
@@ -79,7 +79,7 @@ public class Save : MonoBehaviour
                 }
                 foreach (Cell cell in CellFunctions.cellList)
                 {
-                    cellData[(int)cell.spawnPosition.x + ((int)cell.spawnPosition.y * CellFunctions.gridWidth)] += (2 * (int)cell.cellType) + (18 * cell.rotation) - 72;
+                    cellData[(int)cell.spawnPosition.x + ((int)cell.spawnPosition.y * CellFunctions.gridWidth)] += (2 * (int)cell.cellType) + (18 * cell.spawnRotation) - 72;
                 }
 
                 int runLength = 1;
@@ -123,7 +123,7 @@ public class Save : MonoBehaviour
                 }
                 foreach (Cell cell in CellFunctions.cellList)
                 {
-                    cellData[(int)cell.spawnPosition.x + ((int)cell.spawnPosition.y * CellFunctions.gridWidth)] += (2 * (int)cell.cellType) + (18 * cell.rotation) - 72;
+                    cellData[(int)cell.spawnPosition.x + ((int)cell.spawnPosition.y * CellFunctions.gridWidth)] += (2 * (int)cell.cellType) + (18 * cell.spawnRotation) - 72;
                 }
 
                 int matchLength;
@@ -201,7 +201,7 @@ public class Save : MonoBehaviour
                         {
                             rawOut.Append(EncodeInt(placable ? 73 : 72)); continue;
                         }
-                        rawOut.Append(EncodeInt((2 * (int)currentCell.cellType) + (18 * currentCell.rotation) + (placable ? 1 : 0)));
+                        rawOut.Append(EncodeInt((2 * (int)currentCell.cellType) + (18 * currentCell.spawnRotation) + (placable ? 1 : 0)));
                     }
                 }
 
