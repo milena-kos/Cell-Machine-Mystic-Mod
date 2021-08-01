@@ -11,9 +11,10 @@ public class DropdownSetting : MonoBehaviour
 
     void Start()
     {
-        dropdown = GetComponent<Dropdown>();
+        dropdown = gameObject.GetComponent<Dropdown>();
         dropdown.value = PlayerPrefs.GetInt(playerPrefString, defaultValue);
-        dropdown.onValueChanged.AddListener(delegate {
+        dropdown.onValueChanged.AddListener(delegate
+        {
             DropdownValueChanged(dropdown);
         });
     }

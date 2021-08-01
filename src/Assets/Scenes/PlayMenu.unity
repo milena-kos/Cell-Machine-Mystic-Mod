@@ -98,7 +98,7 @@ LightmapSettings:
     m_TrainingDataDestination: TrainingData
     m_LightProbeSampleCountMultiplier: 4
   m_LightingDataAsset: {fileID: 0}
-  m_UseShadowmask: 0
+  m_UseShadowmask: 1
 --- !u!196 &4
 NavMeshSettings:
   serializedVersion: 2
@@ -738,6 +738,7 @@ GameObject:
   - component: {fileID: 635283316}
   - component: {fileID: 635283315}
   - component: {fileID: 635283319}
+  - component: {fileID: 635283320}
   m_Layer: 5
   m_Name: Canvas
   m_TagString: Untagged
@@ -842,6 +843,19 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f68018a1d6500f64cbda531dc8af3bc6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!114 &635283320
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 635283314}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 958f33e3f7bf6489b96fd8604e5b04b0, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  errorCard: {fileID: 181061697754536965}
 --- !u!1 &795913522
 GameObject:
   m_ObjectHideFlags: 0
@@ -1119,9 +1133,9 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 635283319}
-        m_MethodName: PressButton
-        m_Mode: 5
+      - m_Target: {fileID: 635283320}
+        m_MethodName: LoadLevel
+        m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
           m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
@@ -2112,7 +2126,7 @@ PrefabInstance:
     - target: {fileID: 181061698789215738, guid: e62058b1eba304c3580feb13daa4c7d1,
         type: 3}
       propertyPath: m_IsActive
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 181061698789215739, guid: e62058b1eba304c3580feb13daa4c7d1,
         type: 3}
@@ -2224,5 +2238,16 @@ PrefabInstance:
       propertyPath: m_Enabled
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 4179079663605946569, guid: e62058b1eba304c3580feb13daa4c7d1,
+        type: 3}
+      propertyPath: m_Alpha
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: e62058b1eba304c3580feb13daa4c7d1, type: 3}
+--- !u!1 &181061697754536965 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 181061698789215738, guid: e62058b1eba304c3580feb13daa4c7d1,
+    type: 3}
+  m_PrefabInstance: {fileID: 181061697754536964}
+  m_PrefabAsset: {fileID: 0}
