@@ -14,7 +14,7 @@ Get the game here: https://themysticlynx.itch.io/cell-machine-mystic-mod
 
 ## Contributing
 
-By contributing you awknowledge that you have read and understood the [contributor agreement](https://github.com/jjblock21/Cell-Machine-Mystic-Mod/blob/master/Contributor_Agreement.txt).
+By contributing you awknowledge that you have read and understood the [contributor agreement](https://github.com/Sequitur-Studios/Cell-Machine-Mystic-Mod/blob/master/.github/CONTRIBUTING.md).
 
 ### Requirements
 
