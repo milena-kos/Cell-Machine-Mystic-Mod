@@ -1,5 +1,7 @@
 # Cell Machine Mystic Mod
 
+[![Thumbnail](https://media.discordapp.net/attachments/860107109781078026/865091827174735922/unknown.png?width=440&height=325)
+
 [![Discord Mine](https://img.shields.io/discord/791818283867045941?label=chat&logo=discord&logoColor=white)](https://discord.gg/AcPpgxctAE)
 [![CodeFactor](https://www.codefactor.io/repository/github/sequitur-studios/cell-machine-mystic-mod/badge)](https://www.codefactor.io/repository/github/sequitur-studios/cell-machine-mystic-mod)
 ![Issues](https://img.shields.io/github/issues/Sequitur-Studios/Cell-Machine-Mystic-Mod)
@@ -22,8 +24,7 @@ By contributing you awknowledge that you have read and understood the [contribut
 2. Install [git](https://git-scm.com/) (command line) or [GitKraken](https://www.gitkraken.com/) (GUI) for interaction with GitHub
 3. Install git-lfs to pull the large file assets:
 
-    Windows:
-    https://git-lfs.github.com/
+    Windows: https://git-lfs.github.com/
     
     Linux:
     ```
