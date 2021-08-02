@@ -10,9 +10,9 @@ public class CameraPan : MonoBehaviour
 
     private void Start()
     {
-		instance = this;
+        instance = this;
     }
-    
+
     public void PositionCamera()
     {
         this.x = (float)CellFunctions.gridWidth * 0.5f - 0.5f;
@@ -23,7 +23,7 @@ public class CameraPan : MonoBehaviour
     }
 
     public void Update()
-	{
+    {
         this.orthographicSize -= Input.mouseScrollDelta.y * 0.5f * Mathf.Sqrt(this.orthographicSize);
         if (this.orthographicSize < 0.5)
             this.orthographicSize = 0.5f;
@@ -33,17 +33,17 @@ public class CameraPan : MonoBehaviour
 
         if (Input.GetKey("left ctrl"))
         {
-            this.x += Input.GetAxis("Horizontal") * 0.5f;
-            this.y += Input.GetAxis("Vertical") * 0.5f;
+            this.x += Input.GetAxis("Horizontal") * 0.5f * PlayerPrefs.GetFloat("MovementSpeed", 1f);
+            this.y += Input.GetAxis("Vertical") * 0.5f * PlayerPrefs.GetFloat("MovementSpeed", 1f);
         }
         else
         {
-            this.x += Input.GetAxis("Horizontal") * 0.2f;
-            this.y += Input.GetAxis("Vertical") * 0.2f;
+            this.x += Input.GetAxis("Horizontal") * 0.2f * PlayerPrefs.GetFloat("MovementSpeed", 1f);
+            this.y += Input.GetAxis("Vertical") * 0.2f * PlayerPrefs.GetFloat("MovementSpeed", 1f);
         }
-		base.transform.position = new Vector3(this.x, this.y, -10f);
-		base.GetComponent<Camera>().orthographicSize = this.orthographicSize;
-	}
+        base.transform.position = new Vector3(this.x, this.y, -10f);
+        base.GetComponent<Camera>().orthographicSize = this.orthographicSize;
+    }
 
-	public static CameraPan instance;
+    public static CameraPan instance;
 }

@@ -16,7 +16,8 @@ public class DebugUI : MonoBehaviour
     {
         smoothTime += Time.deltaTime;
 
-        if (Input.GetKeyDown(KeyCode.BackQuote)) {
+        if (Input.GetKeyDown(KeyCode.BackQuote))
+        {
             print("A");
             show = !show;
         }
@@ -31,14 +32,16 @@ public class DebugUI : MonoBehaviour
             smoothTime = 0;
         }
 
-        if (show) {
+        if (show)
+        {
             windowRect.width = 120;
             windowRect.height = 100;
             windowRect = GUI.Window(0, windowRect, DoMyWindow, "Debug");
         }
     }
 
-    private void DoMyWindow(int windowId) {
+    private void DoMyWindow(int windowId)
+    {
         GridManager.subTick = GUI.Toggle(new Rect(20, 100, 80, 20), GridManager.subTick, "ST");
         GUI.Label(new Rect(20, 20, 80, 20), "FPS " + Mathf.Floor(fps));
         GUI.Label(new Rect(20, 40, 80, 20), "MSPT " + Mathf.Floor(mspt) + "/" + GridManager.animationLength * 100);
