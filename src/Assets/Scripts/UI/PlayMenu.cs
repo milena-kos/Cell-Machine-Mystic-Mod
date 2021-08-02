@@ -19,7 +19,6 @@ public class PlayMenu : MonoBehaviour
                 cells.Add("7.0." + enemyCell);
         }
 
-
         string[] newCell = { "0.0", "0.2", "0.3", "0.1", "2.0", "1.0", "3.0", "3.2", "3.3", "3.1", "5.0", "4.0", "4.1", "6.0" };
         foreach (string oldCell in components[4].Split(','))
         {

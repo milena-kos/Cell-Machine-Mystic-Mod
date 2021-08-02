@@ -37,7 +37,6 @@ public class Save : MonoBehaviour
         int[] cellData;
         int dataIndex = 0;
 
-
         switch (PlayerPrefs.GetInt("ExportFormat", 2))
         {
             case 0:
