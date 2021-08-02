@@ -1,5 +1,7 @@
 # Cell Machine Mystic Mod
 
+[![Thumbnail](https://media.discordapp.net/attachments/791818284370231318/871572163977699328/unknown.png?width=1583&height=1335)
+
 [![Discord Mine](https://img.shields.io/discord/791818283867045941?label=chat&logo=discord&logoColor=white)](https://discord.gg/AcPpgxctAE)
 [![CodeFactor](https://www.codefactor.io/repository/github/sequitur-studios/cell-machine-mystic-mod/badge)](https://www.codefactor.io/repository/github/sequitur-studios/cell-machine-mystic-mod)
 ![Issues](https://img.shields.io/github/issues/Sequitur-Studios/Cell-Machine-Mystic-Mod)
@@ -14,7 +16,7 @@ Get the game here: https://themysticlynx.itch.io/cell-machine-mystic-mod
 
 ## Contributing
 
-By contributing you awknowledge that you have read and understood the [contributor agreement](https://github.com/jjblock21/Cell-Machine-Mystic-Mod/blob/master/Contributor_Agreement.txt).
+By contributing you awknowledge that you have read and understood the [contributor agreement](https://github.com/Sequitur-Studios/Cell-Machine-Mystic-Mod/blob/master/.github/CONTRIBUTING.md).
 
 ### Requirements
 
@@ -22,8 +24,7 @@ By contributing you awknowledge that you have read and understood the [contribut
 2. Install [git](https://git-scm.com/) (command line) or [GitKraken](https://www.gitkraken.com/) (GUI) for interaction with GitHub
 3. Install git-lfs to pull the large file assets:
 
-    Windows:
-    https://git-lfs.github.com/
+    Windows: https://git-lfs.github.com/
     
     Linux:
     ```
