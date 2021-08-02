@@ -1,6 +1,6 @@
 # Cell Machine Mystic Mod
 
-[![Thumbnail](https://media.discordapp.net/attachments/860107109781078026/865091827174735922/unknown.png?width=440&height=325)
+[!Thumbnail](https://media.discordapp.net/attachments/860107109781078026/865091827174735922/unknown.png?width=440&height=325)
 
 [![Discord Mine](https://img.shields.io/discord/791818283867045941?label=chat&logo=discord&logoColor=white)](https://discord.gg/AcPpgxctAE)
 [![CodeFactor](https://www.codefactor.io/repository/github/sequitur-studios/cell-machine-mystic-mod/badge)](https://www.codefactor.io/repository/github/sequitur-studios/cell-machine-mystic-mod)
