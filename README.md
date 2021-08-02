@@ -1,6 +1,5 @@
-# Cell Machine Mystic Mod
-
-[![Thumbnail](https://media.discordapp.net/attachments/791818284370231318/871572163977699328/unknown.png?width=1583&height=1335)
+<!-- # Cell Machine Mystic Mod -->
+![Cell Machine Mystic Mod](https://cdn.discordapp.com/attachments/791918858855383074/871725987828744282/banner.png)
 
 [![Discord Mine](https://img.shields.io/discord/791818283867045941?label=chat&logo=discord&logoColor=white)](https://discord.gg/AcPpgxctAE)
 [![CodeFactor](https://www.codefactor.io/repository/github/sequitur-studios/cell-machine-mystic-mod/badge)](https://www.codefactor.io/repository/github/sequitur-studios/cell-machine-mystic-mod)
@@ -12,7 +11,9 @@ A game about cellular automata
 
 ## Download
 
-Get the game here: https://themysticlynx.itch.io/cell-machine-mystic-mod
+- [Get the latest version of game here.](https://themysticlynx.itch.io/cell-machine-mystic-mod)
+- [Get the more recent development builds of the game here](https://github.com/Sequitur-Studios/Cell-Machine-Mystic-Mod/actions/workflows/build.yml) (Build Artifacts).
+
 
 ## Contributing
 
