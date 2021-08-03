@@ -23,15 +23,6 @@ By contributing you awknowledge that you have read and understood the [contribut
 
 1. Install [Unity Version 2019.4.28f1](https://unity3d.com/de/unity/qa/lts-releases)
 2. Install [git](https://git-scm.com/) (command line) or [GitKraken](https://www.gitkraken.com/) (GUI) for interaction with GitHub
-3. Install git-lfs to pull the large file assets:
-
-    Windows: https://git-lfs.github.com/
-    
-    Linux:
-    ```
-    curl -s https://packagecloud.io/install/repositories/github/git-lfs/script.deb.sh | sudo bash
-    sudo apt-get install git-lfs
-    ```
 
 ### Clone Repository
 
