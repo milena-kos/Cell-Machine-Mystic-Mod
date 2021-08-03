@@ -98,7 +98,7 @@ LightmapSettings:
     m_TrainingDataDestination: TrainingData
     m_LightProbeSampleCountMultiplier: 4
   m_LightingDataAsset: {fileID: 0}
-  m_UseShadowmask: 0
+  m_UseShadowmask: 1
 --- !u!196 &4
 NavMeshSettings:
   serializedVersion: 2
@@ -3272,6 +3272,51 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 836680734}
   m_CullTransparentMesh: 0
+--- !u!1 &839944811
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 839944813}
+  - component: {fileID: 839944812}
+  m_Layer: 0
+  m_Name: UiHider
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &839944812
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 839944811}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1f4f7f28c1bf87b42bc616ec44803eec, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  go: {fileID: 1151109604}
+  key: 282
+--- !u!4 &839944813
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 839944811}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 549.7584, y: 296.85342, z: -365.90564}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 10
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &849825957
 GameObject:
   m_ObjectHideFlags: 0
@@ -3820,8 +3865,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7bd9e33d3ecb1534c828febf97e943e8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  sliderValueDisplay: {fileID: 2088197022}
-  playerPrefString: FX Volume
 --- !u!114 &954775150
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -4012,8 +4055,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7bd9e33d3ecb1534c828febf97e943e8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  sliderValueDisplay: {fileID: 1342087242}
-  playerPrefString: Music Volume
 --- !u!114 &1004290731
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -4745,7 +4786,6 @@ GameObject:
   - component: {fileID: 1151109607}
   - component: {fileID: 1151109606}
   - component: {fileID: 1151109605}
-  - component: {fileID: 1151109609}
   m_Layer: 5
   m_Name: Canvas
   m_TagString: Untagged
@@ -4849,30 +4889,6 @@ RectTransform:
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0, y: 0}
---- !u!114 &1151109609
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1151109604}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 1f4f7f28c1bf87b42bc616ec44803eec, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  objectsToHide:
-  - {fileID: 133551044}
-  - {fileID: 1727692361}
-  - {fileID: 439691386}
-  - {fileID: 91266221}
-  - {fileID: 486249574}
-  - {fileID: 836680734}
-  - {fileID: 2110744565}
-  - {fileID: 892493339}
-  - {fileID: 2000954260}
-  - {fileID: 157974114}
-  key: 282
 --- !u!1 &1267623590
 GameObject:
   m_ObjectHideFlags: 0

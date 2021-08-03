@@ -4,8 +4,7 @@ using UnityEngine;
 
 public class HideLevelGui : MonoBehaviour
 {
-    [SerializeField]
-    private List<GameObject> objectsToHide;
+    public GameObject go;
 
     [SerializeField]
     private KeyCode key = KeyCode.F1;
@@ -16,20 +15,8 @@ public class HideLevelGui : MonoBehaviour
     {
         if (Input.GetKeyDown(key))
         {
-            if (visible)
-            {
-                SetObjectsVisible(false);
-                visible = false;
-                return;
-            }
-            SetObjectsVisible(true);
-            visible = true;
+            visible = !visible;
+            go.SetActive(visible);
         }
-    }
-
-    private void SetObjectsVisible(bool visible)
-    {
-        foreach (GameObject gameObject in objectsToHide)
-            gameObject.SetActive(visible);
     }
 }
