@@ -5,11 +5,10 @@ using UnityEngine;
 
 public class MusicManager : MonoBehaviour
 {
+    public AudioSource fadeIn;
+    public AudioSource looping;
 
-    AudioSource looping;
-    AudioSource fadeIn;
     static bool debounce;
-
 
     // Start is called before the first frame update
     void Start()
@@ -22,9 +21,7 @@ public class MusicManager : MonoBehaviour
         debounce = true;
         DontDestroyOnLoad(gameObject);
 
-        AudioSource[] songClips = GetComponents<AudioSource>();
-        fadeIn = songClips[0];
-        looping = songClips[1];
+
 
         if (!PlayerPrefs.HasKey("Music Volume"))
         {
