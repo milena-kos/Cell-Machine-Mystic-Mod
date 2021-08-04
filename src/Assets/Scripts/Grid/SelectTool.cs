@@ -34,7 +34,6 @@ public class SelectTool : MonoBehaviour
     Vector2Int max;
     Vector2 toolboxPos;
 
-
     void Awake()
     {
         selectedCells = new List<Cell>();
@@ -166,6 +165,10 @@ public class SelectTool : MonoBehaviour
         state = State_e.PREVIEW;
     }
 
+    public void SaveCells()
+    {
+        GetComponent<Save>().SaveString(new Vector2Int(min.x, max.y), new Vector2Int(max.x, min.y));
+    }
 
     void Update()
     {

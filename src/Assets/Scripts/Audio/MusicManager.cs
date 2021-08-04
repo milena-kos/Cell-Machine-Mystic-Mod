@@ -16,6 +16,7 @@ public class MusicManager : MonoBehaviour
 
         if (debounce) 
         {
+            Destroy(gameObject);
             return;
         }
         debounce = true;
@@ -39,7 +40,7 @@ public class MusicManager : MonoBehaviour
 
         fadeIn.Play();
         looping.PlayScheduled(AudioSettings.dspTime + fadeIn.clip.length);
-
+        looping.loop = true;
     }
 
     public void volumeUpdate(float vol)

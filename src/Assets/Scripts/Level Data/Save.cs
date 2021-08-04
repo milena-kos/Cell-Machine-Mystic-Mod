@@ -5,6 +5,7 @@ public class Save : MonoBehaviour
 {
     public GameObject saveText;
     private const string cellKey = "0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ!$%&+-.=?^{}";
+    public GameObject canvas;
 
     public void Awake()
     {
@@ -25,14 +26,18 @@ public class Save : MonoBehaviour
         return output;
     }
 
-    public void SaveString()
+    public void SaveString() {
+        SaveString(new Vector2Int(0, CellFunctions.gridHeight - 1), new Vector2Int(CellFunctions.gridWidth - 1, 0));
+    }
+
+    public void SaveString(Vector2Int topLeft, Vector2Int bottomRight)
     {
         int format = PlayerPrefs.GetInt("ExportFormat", 2) + 1;
         StringBuilder output = new StringBuilder();
         output.Append("V" + format + ";");
 
-        if (format == 1) output.Append(CellFunctions.gridWidth + ";" + CellFunctions.gridHeight + ";");
-        else output.Append(EncodeInt(CellFunctions.gridWidth) + ";" + EncodeInt(CellFunctions.gridHeight) + ";");
+        if (format == 1) output.Append(((bottomRight.x + 1) - topLeft.x) + ";" + ((topLeft.y + 1) - bottomRight.y) + ";");
+        else output.Append(EncodeInt(((bottomRight.x + 1) - topLeft.x)) + ";" + EncodeInt(((topLeft.y + 1) - bottomRight.y)) + ";");
 
         int[] cellData;
         int dataIndex = 0;
@@ -41,16 +46,16 @@ public class Save : MonoBehaviour
         {
             case 0:
                 bool debounce = false;
-                for (int y = 0; y < CellFunctions.gridHeight; y++)
+                for (int y = bottomRight.y; y <= topLeft.y; y++)
                 {
-                    for (int x = 0; x < CellFunctions.gridWidth; x++)
+                    for (int x = topLeft.x; x <= bottomRight.x; x++)
                     {
                         if (GridManager.instance.tilemap.GetTile(new Vector3Int(x, y, 0)) == GridManager.instance.placebleTile)
                         {
                             if (debounce)
                                 output.Append(",");
                             debounce = true;
-                            output.Append(x + "." + y);
+                            output.Append((x - topLeft.x) + "." + (y - bottomRight.y));
                         }
                     }
                 }
@@ -62,23 +67,23 @@ public class Save : MonoBehaviour
                     if (debounce)
                         output.Append(",");
                     debounce = true;
-                    output.Append((int)cell.cellType + "." + (int)cell.spawnRotation + "." + (int)cell.spawnPosition.x + "." + (int)cell.spawnPosition.y);
+                    output.Append((int)cell.cellType + "." + (int)cell.spawnRotation + "." + (int)(cell.spawnPosition.x - topLeft.x) + "." + (int)(cell.spawnPosition.y - bottomRight.y));
                 }
                 break;
 
             case 1:
-                cellData = new int[CellFunctions.gridWidth * CellFunctions.gridHeight];
+                cellData = new int[((bottomRight.x + 1) - topLeft.x) * ((topLeft.y + 1) - bottomRight.y)];
 
-                for (int y = 0; y < CellFunctions.gridHeight; y++)
+                for (int y = bottomRight.y; y <= topLeft.y; y++)
                 {
-                    for (int x = 0; x < CellFunctions.gridWidth; x++)
+                    for (int x = topLeft.x; x <= bottomRight.x; x++)
                     {
-                        cellData[x + (y * CellFunctions.gridWidth)] = GridManager.instance.tilemap.GetTile(new Vector3Int(x, y, 0)) == GridManager.instance.placebleTile ? 73 : 72;
+                        cellData[(x - topLeft.x) + ((y - bottomRight.y) * (bottomRight.x + 1 - topLeft.x))] = GridManager.instance.tilemap.GetTile(new Vector3Int(x, y, 0)) == GridManager.instance.placebleTile ? 73 : 72;
                     }
                 }
                 foreach (Cell cell in CellFunctions.cellList)
                 {
-                    cellData[(int)cell.spawnPosition.x + ((int)cell.spawnPosition.y * CellFunctions.gridWidth)] += (2 * (int)cell.cellType) + (18 * cell.spawnRotation) - 72;
+                    cellData[(int)(cell.spawnPosition.x - topLeft.x) + ((int)(cell.spawnPosition.y - bottomRight.y) * ((bottomRight.x + 1) - topLeft.x))] += (2 * (int)cell.cellType) + (18 * cell.spawnRotation) - 72;
                 }
 
                 int runLength = 1;
@@ -106,18 +111,18 @@ public class Save : MonoBehaviour
                 break;
 
             case 2:
-                cellData = new int[CellFunctions.gridWidth * CellFunctions.gridHeight];
+                cellData = new int[((bottomRight.x + 1) - topLeft.x) * ((topLeft.y + 1) - bottomRight.y)];
 
-                for (int y = 0; y < CellFunctions.gridHeight; y++)
+                for (int y = bottomRight.y; y <= topLeft.y; y++)
                 {
-                    for (int x = 0; x < CellFunctions.gridWidth; x++)
+                    for (int x = topLeft.x; x <= bottomRight.x; x++)
                     {
-                        cellData[x + (y * CellFunctions.gridWidth)] = GridManager.instance.tilemap.GetTile(new Vector3Int(x, y, 0)) == GridManager.instance.placebleTile ? 73 : 72;
+                        cellData[(x - topLeft.x) + ((y - bottomRight.y) * (bottomRight.x + 1 - topLeft.x))] = GridManager.instance.tilemap.GetTile(new Vector3Int(x, y, 0)) == GridManager.instance.placebleTile ? 73 : 72;
                     }
                 }
                 foreach (Cell cell in CellFunctions.cellList)
                 {
-                    cellData[(int)cell.spawnPosition.x + ((int)cell.spawnPosition.y * CellFunctions.gridWidth)] += (2 * (int)cell.cellType) + (18 * cell.spawnRotation) - 72;
+                    cellData[(int)(cell.spawnPosition.x - topLeft.x) + ((int)(cell.spawnPosition.y - bottomRight.y) * ((bottomRight.x + 1) - topLeft.x))] += (2 * (int)cell.cellType) + (18 * cell.spawnRotation) - 72;
                 }
 
                 int matchLength;
@@ -206,7 +211,7 @@ public class Save : MonoBehaviour
 
         GridManager.hasSaved = true;
         GUIUtility.systemCopyBuffer = output.ToString();
-        GameObject go = Instantiate(saveText, this.GetComponentInParent<Transform>(), true);
+        GameObject go = Instantiate(saveText, canvas.GetComponent<Transform>(), true);
         go.SetActive(true);
         Destroy(go, 3);
     }
