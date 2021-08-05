@@ -46,7 +46,7 @@ jobs:
         uses: actions/upload-artifact@v1
         with:
           name: Launcher-MacOS
-          path: artifacts/mac
+          path: artifacts
       - name: Upload artifacts (win)
         if: matrix.os == 'windows-latest'
         uses: actions/upload-artifact@v1
