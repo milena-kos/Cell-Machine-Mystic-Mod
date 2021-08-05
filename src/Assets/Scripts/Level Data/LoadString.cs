@@ -1,7 +1,5 @@
-﻿using System.Collections;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.Tilemaps;
 using System;
 using TMPro;
 
@@ -47,8 +45,6 @@ namespace load
                 (Direction_e)(c / 18),
                 false);
         }
-
-
 
         public static bool Load(string str)
         {
@@ -219,24 +215,6 @@ namespace load
                     tutorialText = arguments[4];
                     levelName = arguments[5];
                     break;
-
-                case "V4":
-                    CellFunctions.gridWidth = DecodeString(arguments[1]);
-                    CellFunctions.gridHeight = DecodeString(arguments[2]);
-                    GridManager.instance.InitGridSize();
-                    Console.Write(arguments[4]);
-                    Console.Write(Convert.FromBase64String(arguments[4]));
-
-                    string deCompressed = Compression.DeBrotliString(arguments[3]);
-                    while (dataIndex < deCompressed.Length)
-                    {
-                        SetCell(DecodeString(deCompressed[dataIndex].ToString()), dataIndex);
-                        dataIndex++;
-                    }
-                    break;
-
-                default:
-                    return false;
             }
             GameObject.Find("TutorialText").GetComponent<TextMeshProUGUI>().text = tutorialText;
             return true;

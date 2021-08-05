@@ -15,7 +15,7 @@ public class PopulateLevelGrid : MonoBehaviour
     {
         Populate();
     }
-    
+
     void Populate()
     {
         GameObject newObj;
@@ -24,13 +24,14 @@ public class PopulateLevelGrid : MonoBehaviour
         {
             newObj = (GameObject)Instantiate(prefab, transform);
             newObj.GetComponentInChildren<Text>().text = (i + 1) + "";
-            if (PlayerPrefs.GetInt("Level" + i, 0) == 1) {
-                newObj.GetComponentInChildren<Text>().color = Color.cyan;
+            if (PlayerPrefs.GetInt("Level" + i, 0) == 1)
+            {
+                newObj.GetComponentInChildren<Text>().color = new Color32(159, 162, 243, 255);
             }
 
-            int levelToLoad = i;    
+            int levelToLoad = i;
 
-            newObj.GetComponent<Button>().onClick.AddListener(delegate()
+            newObj.GetComponent<Button>().onClick.AddListener(delegate ()
             {
                 GridManager.loadString = GameLevels.levels[levelToLoad];
                 GridManager.currentLevel = levelToLoad;

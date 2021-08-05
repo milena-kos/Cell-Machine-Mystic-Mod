@@ -5,6 +5,7 @@ public class Save : MonoBehaviour
 {
     public GameObject saveText;
     private const string cellKey = "0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ!$%&+-.=?^{}";
+    public GameObject canvas;
 
     public void Awake()
     {
@@ -25,61 +26,64 @@ public class Save : MonoBehaviour
         return output;
     }
 
-    public void SaveString()
+    public void SaveString() {
+        SaveString(new Vector2Int(0, CellFunctions.gridHeight - 1), new Vector2Int(CellFunctions.gridWidth - 1, 0));
+    }
+
+    public void SaveString(Vector2Int topLeft, Vector2Int bottomRight)
     {
-        string output = "";
+        int format = PlayerPrefs.GetInt("ExportFormat", 2) + 1;
+        StringBuilder output = new StringBuilder();
+        output.Append("V" + format + ";");
+
+        if (format == 1) output.Append(((bottomRight.x + 1) - topLeft.x) + ";" + ((topLeft.y + 1) - bottomRight.y) + ";");
+        else output.Append(EncodeInt(((bottomRight.x + 1) - topLeft.x)) + ";" + EncodeInt(((topLeft.y + 1) - bottomRight.y)) + ";");
 
         int[] cellData;
         int dataIndex = 0;
 
-        switch (PlayerPrefs.GetInt("ExportFormat"))
+        switch (PlayerPrefs.GetInt("ExportFormat", 2))
         {
             case 0:
-                output = "V1;" + CellFunctions.gridWidth + ";" + CellFunctions.gridHeight + ";";
-
                 bool debounce = false;
-                for (int y = 0; y < CellFunctions.gridHeight; y++)
+                for (int y = bottomRight.y; y <= topLeft.y; y++)
                 {
-                    for (int x = 0; x < CellFunctions.gridWidth; x++)
+                    for (int x = topLeft.x; x <= bottomRight.x; x++)
                     {
                         if (GridManager.instance.tilemap.GetTile(new Vector3Int(x, y, 0)) == GridManager.instance.placebleTile)
                         {
                             if (debounce)
-                                output += ",";
+                                output.Append(",");
                             debounce = true;
-                            output += x + "." + y;
+                            output.Append((x - topLeft.x) + "." + (y - bottomRight.y));
                         }
                     }
                 }
-                output += ";";
+                output.Append(";");
 
                 debounce = false;
                 foreach (Cell cell in CellFunctions.cellList)
                 {
                     if (debounce)
-                        output += ",";
+                        output.Append(",");
                     debounce = true;
-                    output += (int)cell.cellType + "." + (int)cell.getDirection() + "." + (int)cell.spawnPosition.x + "." + (int)cell.spawnPosition.y;
+                    output.Append((int)cell.cellType + "." + (int)cell.spawnRotation + "." + (int)(cell.spawnPosition.x - topLeft.x) + "." + (int)(cell.spawnPosition.y - bottomRight.y));
                 }
-                output += ";;";
-
                 break;
 
             case 1:
-                output = "V2;" + EncodeInt(CellFunctions.gridWidth) + ";" + EncodeInt(CellFunctions.gridHeight) + ";";
+                cellData = new int[((bottomRight.x + 1) - topLeft.x) * ((topLeft.y + 1) - bottomRight.y)];
 
-                cellData = new int[CellFunctions.gridWidth * CellFunctions.gridHeight];
-
-                for (int y = 0; y < CellFunctions.gridHeight; y++)
+                for (int y = bottomRight.y; y <= topLeft.y; y++)
                 {
-                    for (int x = 0; x < CellFunctions.gridWidth; x++)
+                    for (int x = topLeft.x; x <= bottomRight.x; x++)
                     {
-                        cellData[x + (y * CellFunctions.gridWidth)] = GridManager.instance.tilemap.GetTile(new Vector3Int(x, y, 0)) == GridManager.instance.placebleTile ? 73 : 72;
+                        cellData[(x - topLeft.x) + ((y - bottomRight.y) * (bottomRight.x + 1 - topLeft.x))] = GridManager.instance.tilemap.GetTile(new Vector3Int(x, y, 0)) == GridManager.instance.placebleTile ? 73 : 72;
                     }
                 }
                 foreach (Cell cell in CellFunctions.cellList)
                 {
-                    cellData[(int)cell.spawnPosition.x + ((int)cell.spawnPosition.y * CellFunctions.gridWidth)] += (2 * (int)cell.cellType) + (18 * cell.rotation) - 72;
+                    cellData[(int)(cell.spawnPosition.x - topLeft.x) + ((int)(cell.spawnPosition.y - bottomRight.y) * ((bottomRight.x + 1) - topLeft.x))] += (2 * (int)cell.cellType) + (18 * cell.spawnRotation) - 72;
                 }
 
                 int runLength = 1;
@@ -94,36 +98,31 @@ public class Save : MonoBehaviour
                         if (runLength > 3)
                         {
                             if (EncodeInt(runLength - 1).Length > 1)
-                                output += cellKey[cellData[dataIndex]] + "(" + EncodeInt(runLength - 1) + ")";
+                                output.Append(cellKey[cellData[dataIndex]] + "(" + EncodeInt(runLength - 1) + ")");
                             else
-                                output += cellKey[cellData[dataIndex]] + ")" + EncodeInt(runLength - 1);
+                                output.Append(cellKey[cellData[dataIndex]] + ")" + EncodeInt(runLength - 1));
                         }
                         else
-                            output += new string(cellKey[cellData[dataIndex]], runLength);
+                            output.Append(new string(cellKey[cellData[dataIndex]], runLength));
                         runLength = 1;
                     }
                     dataIndex++;
                 }
-
-                cellData = null;
-                output += ";;";
                 break;
 
             case 2:
-                output = "V3;" + EncodeInt(CellFunctions.gridWidth) + ";" + EncodeInt(CellFunctions.gridHeight) + ";";
+                cellData = new int[((bottomRight.x + 1) - topLeft.x) * ((topLeft.y + 1) - bottomRight.y)];
 
-                cellData = new int[CellFunctions.gridWidth * CellFunctions.gridHeight];
-
-                for (int y = 0; y < CellFunctions.gridHeight; y++)
+                for (int y = bottomRight.y; y <= topLeft.y; y++)
                 {
-                    for (int x = 0; x < CellFunctions.gridWidth; x++)
+                    for (int x = topLeft.x; x <= bottomRight.x; x++)
                     {
-                        cellData[x + (y * CellFunctions.gridWidth)] = GridManager.instance.tilemap.GetTile(new Vector3Int(x, y, 0)) == GridManager.instance.placebleTile ? 73 : 72;
+                        cellData[(x - topLeft.x) + ((y - bottomRight.y) * (bottomRight.x + 1 - topLeft.x))] = GridManager.instance.tilemap.GetTile(new Vector3Int(x, y, 0)) == GridManager.instance.placebleTile ? 73 : 72;
                     }
                 }
                 foreach (Cell cell in CellFunctions.cellList)
                 {
-                    cellData[(int)cell.spawnPosition.x + ((int)cell.spawnPosition.y * CellFunctions.gridWidth)] += (2 * (int)cell.cellType) + (18 * cell.rotation) - 72;
+                    cellData[(int)(cell.spawnPosition.x - topLeft.x) + ((int)(cell.spawnPosition.y - bottomRight.y) * ((bottomRight.x + 1) - topLeft.x))] += (2 * (int)cell.cellType) + (18 * cell.spawnRotation) - 72;
                 }
 
                 int matchLength;
@@ -154,65 +153,65 @@ public class Save : MonoBehaviour
                             {
                                 if (maxMatchLength > 3)
                                 {
-                                    output += ")" + EncodeInt(maxMatchOffset) + EncodeInt(maxMatchLength);
+                                    output.Append(")" + EncodeInt(maxMatchOffset) + EncodeInt(maxMatchLength));
                                     dataIndex += maxMatchLength - 1;
                                 }
                                 else
-                                    output += cellKey[cellData[dataIndex]];
+                                    output.Append(cellKey[cellData[dataIndex]]);
                             }
                             else
                             {
                                 if (maxMatchLength > 3 + EncodeInt(maxMatchOffset).Length)
                                 {
-                                    output += "(" + EncodeInt(maxMatchOffset) + ")" + EncodeInt(maxMatchLength);
+                                    output.Append("(" + EncodeInt(maxMatchOffset) + ")" + EncodeInt(maxMatchLength));
                                     dataIndex += maxMatchLength - 1;
                                 }
                                 else
-                                    output += cellKey[cellData[dataIndex]];
+                                    output.Append(cellKey[cellData[dataIndex]]);
                             }
                         }
                         else
                         {
-                            output += "(" + EncodeInt(maxMatchOffset) + "(" + EncodeInt(maxMatchLength) + ")";
+                            output.Append("(" + EncodeInt(maxMatchOffset) + "(" + EncodeInt(maxMatchLength) + ")");
                             dataIndex += maxMatchLength - 1;
                         }
                     }
                     else
-                        output += cellKey[cellData[dataIndex]];
+                        output.Append(cellKey[cellData[dataIndex]]);
 
                     maxMatchLength = 0;
                     dataIndex += 1;
                 }
-
-                cellData = null;
-                output += ";;";
                 break;
-            case 3:
-                output = "V4;" + EncodeInt(CellFunctions.gridWidth) + ";" + EncodeInt(CellFunctions.gridHeight) + ";";
-                StringBuilder rawOut = new StringBuilder();
+                //case 3:
+                //    output = "V4;" + EncodeInt(CellFunctions.gridWidth) + ";" + EncodeInt(CellFunctions.gridHeight) + ";";
+                //    StringBuilder rawOut = new StringBuilder();
 
-                for (int y = 0; y < CellFunctions.gridHeight; y++)
-                {
-                    for (int x = 0; x < CellFunctions.gridWidth; x++)
-                    {
-                        bool placable = GridManager.instance.tilemap.GetTile(new Vector3Int(x, y, 0)) == GridManager.instance.placebleTile;
-                        Cell currentCell = CellFunctions.cellGrid[x, y];
-                        if (currentCell == null)
-                        {
-                            rawOut.Append(EncodeInt(placable ? 73 : 72)); continue;
-                        }
-                        rawOut.Append(EncodeInt((2 * (int)currentCell.cellType) + (18 * currentCell.rotation) + (placable ? 1 : 0)));
-                    }
-                }
+                //    for (int y = 0; y < CellFunctions.gridHeight; y++)
+                //    {
+                //        for (int x = 0; x < CellFunctions.gridWidth; x++)
+                //        {
+                //            bool placable = GridManager.instance.tilemap.GetTile(new Vector3Int(x, y, 0)) == GridManager.instance.placebleTile;
+                //            Cell currentCell = CellFunctions.cellGrid[x, y];
+                //            if (currentCell == null)
+                //            {
+                //                rawOut.Append(EncodeInt(placable ? 73 : 72)); continue;
+                //            }
+                //            rawOut.Append(EncodeInt((2 * (int)currentCell.cellType) + (18 * currentCell.spawnRotation) + (placable ? 1 : 0)));
+                //        }
+                //    }
 
-                output += Compression.BrotliString(rawOut.ToString()) + ";;";
-                rawOut = null;
-                break;
+                //    output += Compression.BrotliString(rawOut.ToString()) + ";;";
+                //    rawOut = null;
+                //    break;
         }
 
+        cellData = null;
+        output.Append(";;");
+
         GridManager.hasSaved = true;
-        GUIUtility.systemCopyBuffer = output;
-        GameObject go = Instantiate(saveText, this.GetComponentInParent<Transform>(), true);
+        GUIUtility.systemCopyBuffer = output.ToString();
+        GameObject go = Instantiate(saveText, canvas.GetComponent<Transform>(), true);
         go.SetActive(true);
         Destroy(go, 3);
     }
