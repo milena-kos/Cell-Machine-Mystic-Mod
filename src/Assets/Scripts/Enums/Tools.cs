@@ -10,5 +10,6 @@
     TRASH,
     DRAG,
     PLACEMENT,
-    SELECT
+    SELECT,
+    ERASE
 }

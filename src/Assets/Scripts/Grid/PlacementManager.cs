@@ -36,28 +36,12 @@ public class PlacementManager : MonoBehaviour
         animationTime += Time.deltaTime;
 
         #region Animation and rotating
-        if (Input.GetKeyDown(KeyCode.Q) && GridManager.tool != Tool_e.SELECT) {
-            animationTime = 0;
-            if ((int)dir == 0)
-            {
-                dir = (Direction_e)3;
-            }
-            else {
-                dir = (Direction_e)((int)dir - 1);
-            }
+        if (Input.GetKeyDown(KeyCode.Q)) {
+            RotateLeft();
         }
-        if (Input.GetKeyDown(KeyCode.E) && GridManager.tool != Tool_e.SELECT) {
-            animationTime = 0;
-            if ((int)dir == 3)
-            {
-                dir = (Direction_e)0;
-            }
-            else
-            {
-                dir = (Direction_e)((int)dir + 1);
-            }
+        if (Input.GetKeyDown(KeyCode.E)) {
+            RotateRight();
         }
-        
 
         foreach (Transform transform in Buttons) {
             if(transform.GetComponent<EditorButtons>().Animate)
@@ -75,6 +59,27 @@ public class PlacementManager : MonoBehaviour
         int y = Mathf.FloorToInt(worldPoint.y + .5f);
 
         if (Input.GetMouseButton(0)) {
+
+            if(Input.touchCount == 2)
+              return;
+
+            if (GridManager.tool == Tool_e.ERASE)
+            {
+                if (!GridManager.clean)
+                    return;
+                if (x < 0 || y < 0)
+                    return;
+                if (x >= CellFunctions.gridWidth || y >= CellFunctions.gridHeight)
+                    return;
+
+                if (CellFunctions.cellGrid[x, y] != null)
+                {
+                    AudioManager.i.PlaySound(GameAssets.i.destroy);
+                    CellFunctions.cellGrid[x, y].Delete(true);
+                    GridManager.hasSaved = false;
+                }
+                return;
+            }
 
             if (!GridManager.clean)
                 return;
@@ -110,12 +115,14 @@ public class PlacementManager : MonoBehaviour
                 else return;
             }
 
+
+
             AudioManager.i.PlaySound(GameAssets.i.place);
             Cell cell = GridManager.instance.SpawnCell((CellType_e)GridManager.tool, new Vector2(x,y), dir, false);
             GridManager.hasSaved = false;
         }
 
-        if (Input.GetMouseButton(1) && GridManager.tool != Tool_e.SELECT)
+        if ((Input.GetMouseButton(1) && GridManager.tool != Tool_e.SELECT))
         {
             if (!GridManager.clean)
                 return;
@@ -135,5 +142,33 @@ public class PlacementManager : MonoBehaviour
         if (Input.GetMouseButtonUp(0)) {
             backgroundTileDebounce = false;
         }
+    }
+
+    public void RotateLeft()
+    {
+      if (GridManager.tool != Tool_e.SELECT) {
+          animationTime = 0;
+          if ((int)dir == 0)
+          {
+              dir = (Direction_e)3;
+          }
+          else {
+              dir = (Direction_e)((int)dir - 1);
+          }
+      }
+    }
+    public void RotateRight()
+    {
+      if (GridManager.tool != Tool_e.SELECT) {
+          animationTime = 0;
+          if ((int)dir == 3)
+          {
+              dir = (Direction_e)0;
+          }
+          else
+          {
+              dir = (Direction_e)((int)dir + 1);
+          }
+      }
     }
 }
