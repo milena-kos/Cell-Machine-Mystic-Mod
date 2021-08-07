@@ -43,15 +43,15 @@ public class CameraPan : MonoBehaviour
 
           if (pinchDifference < -3f || pinchDifference > 3f)
           {
-              this.orthographicSize -= (pinchDifference / this.orthographicSize) / 4f;
+              this.orthographicSize -= (pinchDifference / this.orthographicSize) / 2f;
           }
 
           Vector3 average = cam.ScreenToWorldPoint((touchZero.position + touchOne.position) / 2f);
           Vector3 prevAverage = cam.ScreenToWorldPoint((touchZeroPrev + touchOnePrev) / 2f);
           Vector3 averageDifference = average - prevAverage;
 
-          this.x -= averageDifference.x / 4f;
-          this.y -= averageDifference.y / 4f;
+          this.x -= averageDifference.x / 2f;
+          this.y -= averageDifference.y / 2f;
       }
 
       this.orthographicSize -= Input.mouseScrollDelta.y * 0.5f * Mathf.Sqrt(this.orthographicSize);
