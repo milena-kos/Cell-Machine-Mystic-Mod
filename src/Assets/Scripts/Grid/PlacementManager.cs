@@ -58,7 +58,7 @@ public class PlacementManager : MonoBehaviour
         int x = Mathf.FloorToInt(worldPoint.x + .5f);
         int y = Mathf.FloorToInt(worldPoint.y + .5f);
 
-        if (Input.GetMouseButton(0)) {
+        if (Input.GetMouseButton(0) && (EventSystem.current.currentSelectedGameObject == null)) {
 
             if(Input.touchCount == 2)
               return;
