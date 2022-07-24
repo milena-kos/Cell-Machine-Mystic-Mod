@@ -17,7 +17,7 @@ A game about cellular automata
 
 ## Contributing
 
-By contributing you awknowledge that you have read and understood the [contributor agreement](https://github.com/Sequitur-Studios/Cell-Machine-Mystic-Mod/blob/master/.github/CONTRIBUTING.md).
+By contributing you acknowledge that you have read and understood the [contributor agreement](https://github.com/Sequitur-Studios/Cell-Machine-Mystic-Mod/blob/master/.github/CONTRIBUTING.md).
 
 ### Requirements
 
